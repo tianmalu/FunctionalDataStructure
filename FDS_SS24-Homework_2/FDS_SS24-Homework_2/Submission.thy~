@@ -1,0 +1,48 @@
+theory Submission
+  imports Defs
+begin
+
+fun collect :: "'a \<Rightarrow> ('a \<times> 'b) list \<Rightarrow> 'b list"  where
+  "collect _ _ = []"
+
+definition ctest :: "(int * int) list" where "ctest \<equiv> [
+    (2,3),(2,5),(2,7),(2,9), 
+    (3,2),(3,4),(3,5),(3,7),(3,8),
+    (4,3),(4,5),(4,7),(4,9),
+    (5,2),(5,3),(5,4),(5,6),(5,7),(5,8),(5,9),
+    (6,5),(6,7),
+    (7,2),(7,3),(7,4),(7,5),(7,6),(7,8),(7,9),
+    (8,3),(8,5),(8,7),(8,9),
+    (9,2),(9,4),(9,5),(9,7),(9,8)
+  ]"
+
+value "collect 3 ctest = [2,4,5,7,8]"
+value "collect 1 ctest = []"
+
+
+lemma collect_alt: "collect x ys = map snd (filter (\<lambda>kv. fst kv = x) ys)"
+  sorry
+
+fun collect_tr :: "'a list \<Rightarrow> 'b \<Rightarrow> ('b \<times> 'a) list \<Rightarrow> 'a list"  where
+  "collect_tr acc x [] = rev acc"
+| "collect_tr _ _ _ = []"
+
+lemma collect_tr_collect: "collect_tr [] x ys = collect x ys"
+  sorry
+
+fun lheight :: "'a ltree \<Rightarrow> nat"  where
+  "lheight _ = 0"
+
+fun num_leafs :: "'a ltree \<Rightarrow> nat"  where
+  "num_leafs _ = 0"
+
+fun perfect :: "'a ltree \<Rightarrow> bool"  where
+  "perfect _ = True"
+
+lemma perfect_num_leafs_height: "perfect t \<Longrightarrow> num_leafs t = 2^lheight t"
+  sorry
+
+lemma set_shuffles: "zs \<in> set (shuffles xs ys) \<Longrightarrow> set zs = set xs \<union> set ys"
+  sorry
+
+end

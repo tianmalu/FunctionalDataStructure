@@ -1,0 +1,42 @@
+theory Ex02
+  imports Main
+begin
+
+thm fold.simps
+
+fun list_sum :: "nat list ⇒ nat"  where
+  "list_sum [] = 0"|
+  "list_sum (x#xs) = x+ list_sum(xs)"
+
+definition list_sum' :: "nat list \<Rightarrow> nat"  where
+  "list_sum' xs = fold (+) xs 0"
+
+lemma "fold (+) xs a =  a+list_sum' xs"
+  apply(induction xs arbitrary:a)
+  apply auto
+lemma "list_sum xs = list_sum' xs"
+  apply (induction xs)
+   apply (simp add:list_sum'_def)
+   
+
+datatype 'a ltree = Leaf 'a | Node "'a ltree" "'a ltree"
+
+fun inorder :: "'a ltree \<Rightarrow> 'a list"  where
+  "inorder _ = undefined"
+
+fun fold_ltree :: "('a \<Rightarrow> 's \<Rightarrow> 's) \<Rightarrow> 'a ltree \<Rightarrow> 's \<Rightarrow> 's"  where
+  "fold_ltree _ = undefined"
+
+lemma "fold f (inorder t) s = fold_ltree f t s"
+  sorry
+
+lemma "inorder (mirror t) = rev (inorder t)"
+  sorry
+
+fun shuffles :: "'a list \<Rightarrow> 'a list \<Rightarrow> 'a list list"  where
+  "shuffles _ = undefined"
+
+lemma "zs \<in> set (shuffles xs ys) \<Longrightarrow> length zs = length xs + length ys"
+  sorry
+
+end
